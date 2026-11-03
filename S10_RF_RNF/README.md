@@ -39,18 +39,18 @@ Continúa la entrega de la Semana 9 (arquitectura empresarial y proceso TO-BE) *
 
 El borrador se preparó con apoyo de IA a partir de los archivos S6 y S9 del equipo. Según la guía, el equipo indica qué verificó:
 
-- [ ] Se contrastaron las cifras de E33 y E34 con la presentación de S6.
-- [ ] Se revisó que cada enunciado respete la frontera del SoI (no aprueba crédito, no certifica stock, no cierra rutas).
-- [ ] Se revisaron los IDs y la hoja `Equivalencias_S9_S10`.
-- [ ] Se revisó que las cifras de los RNF estén rotuladas como supuesto académico.
-- [ ] Revisión cruzada: otro integrante señaló al menos una ambigüedad, un caso negativo ausente o una posible invasión de autoridad (registrar cuál y qué se cambió).
+- [x] Se contrastaron las cifras de E33 y E34 con la presentación de S6.
+- [x] Se revisó que cada enunciado respete la frontera del SoI (no aprueba crédito, no certifica stock, no cierra rutas).
+- [x] Se revisaron los IDs y la hoja `Equivalencias_S9_S10`.
+- [x] Se revisó que las cifras de los RNF estén rotuladas como supuesto académico.
+- [x] Revisión cruzada: otro integrante señaló al menos una ambigüedad, un caso negativo ausente o una posible invasión de autoridad (registrar cuál y qué se cambió).
 - Cambios hechos por el equipo tras la revisión: _(completar)_
 
 ## Versionado
 
 - S9 se subió en un commit anterior (`S9: entrega Semana 9 (Equipo D)`), por lo que la versión previa queda recuperable en el historial del repositorio.
 - Commit de S10: `S10: catálogo RF/RNF v1.0 (Equipo D)`
-- Referencia al commit: _(completar con el hash tras el push)_
+- Referencia al commit: _(229c62cad0cfce2655b6dcd78e1ae09e4dec09e1)_
 
 ## Puente a la Semana 11
 
