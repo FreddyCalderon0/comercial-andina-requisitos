@@ -1,0 +1,659 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_TOBE_AtenderPedido" name="Proceso TO BE Atender pedido - Comercial Andina S.A.C." targetNamespace="http://bpmn.io/schema/bpmn">
+  <bpmn:message id="Message_SolicitudPedido" name="Solicitud de pedido" />
+  <bpmn:message id="Message_EstadoVentana" name="Estado y ventana de entrega" />
+  <bpmn:message id="Message_PedidoEntregado" name="Pedido entregado" />
+  <bpmn:message id="Message_AvisoCambio" name="Aviso de cambio de ventana" />
+  <bpmn:message id="Message_SolicitudCambio" name="Solicitud de cambio de pedido" />
+  <bpmn:collaboration id="Collaboration_TOBE_AtenderPedido">
+    <bpmn:participant id="Participant_Cliente" name="Cliente (externo)" processRef="Process_Cliente" />
+    <bpmn:participant id="Participant_Andina" name="Comercial Andina S.A.C. - Atender pedido (TO BE)" processRef="Process_AtenderPedido" />
+    <bpmn:messageFlow id="MessageFlow_1" name="Solicitud de pedido" sourceRef="SendTask_SolicitarPedido" targetRef="StartEvent_SolicitudRecibida" messageRef="Message_SolicitudPedido" />
+    <bpmn:messageFlow id="MessageFlow_2" name="Estado y ventana de entrega" sourceRef="Task_NotificarEstado" targetRef="Catch_EstadoVentana" messageRef="Message_EstadoVentana" />
+    <bpmn:messageFlow id="MessageFlow_3" name="Pedido entregado" sourceRef="Task_EntregarPedido" targetRef="ReceiveTask_PedidoEntregado" messageRef="Message_PedidoEntregado" />
+    <bpmn:messageFlow id="MessageFlow_4" name="Aviso de cambio de ventana" sourceRef="Task_AvisarCambio" targetRef="Participant_Cliente" messageRef="Message_AvisoCambio" />
+    <bpmn:messageFlow id="MessageFlow_5" name="Solicitud de cambio de pedido (si aplica)" sourceRef="Participant_Cliente" targetRef="Task_VerificarCambios" messageRef="Message_SolicitudCambio" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_Cliente" name="Cliente" isExecutable="false">
+    <bpmn:startEvent id="StartEvent_Cliente" name="Necesita un pedido">
+      <bpmn:outgoing>Flow_C1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sendTask id="SendTask_SolicitarPedido" name="Enviar solicitud de pedido">
+      <bpmn:documentation>El cliente solicita el pedido por el canal habitual (WhatsApp, teléfono u otro).</bpmn:documentation>
+      <bpmn:incoming>Flow_C1</bpmn:incoming>
+      <bpmn:outgoing>Flow_C2</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:intermediateCatchEvent id="Catch_EstadoVentana" name="Recibir estado y ventana de entrega">
+      <bpmn:incoming>Flow_C2</bpmn:incoming>
+      <bpmn:outgoing>Flow_C3</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_Catch_EstadoVentana" messageRef="Message_EstadoVentana" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:receiveTask id="ReceiveTask_PedidoEntregado" name="Recibir pedido">
+      <bpmn:incoming>Flow_C3</bpmn:incoming>
+      <bpmn:outgoing>Flow_C4</bpmn:outgoing>
+    </bpmn:receiveTask>
+    <bpmn:endEvent id="EndEvent_Cliente" name="Pedido recibido">
+      <bpmn:incoming>Flow_C4</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_C1" sourceRef="StartEvent_Cliente" targetRef="SendTask_SolicitarPedido" />
+    <bpmn:sequenceFlow id="Flow_C2" sourceRef="SendTask_SolicitarPedido" targetRef="Catch_EstadoVentana" />
+    <bpmn:sequenceFlow id="Flow_C3" sourceRef="Catch_EstadoVentana" targetRef="ReceiveTask_PedidoEntregado" />
+    <bpmn:sequenceFlow id="Flow_C4" sourceRef="ReceiveTask_PedidoEntregado" targetRef="EndEvent_Cliente" />
+  </bpmn:process>
+  <bpmn:process id="Process_AtenderPedido" name="Atender pedido (TO BE)" isExecutable="false">
+    <bpmn:laneSet id="LaneSet_AtenderPedido">
+      <bpmn:lane id="Lane_Ventas" name="Ventas / Atención al Cliente">
+        <bpmn:flowNodeRef>StartEvent_SolicitudRecibida</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_RegistrarPedido</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_Merge</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_SplitParalelo</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Renegociar</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_Join</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_PickingHabilitado</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_VerificarCambios</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_Cambio</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_NuevaVersion</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_NotificarEstado</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_EnviarPedidoApto</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_AvisarCambio</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_VerificarEntrega</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_Entregado</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Almacen" name="Almacén / Inventario">
+        <bpmn:flowNodeRef>Task_VerificarStock</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_Stock</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_PrepararPedido</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Creditos" name="Créditos y Cobranzas">
+        <bpmn:flowNodeRef>Task_EvaluarCredito</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_Credito</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_AprobarCredito</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_EvaluarExcepcion</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_Excepcion</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_NotificarRetencion</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_Retenido</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Despacho" name="Despacho y Transporte">
+        <bpmn:flowNodeRef>Gateway_Corte</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_AsignarRuta</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_ReplanificarRuta</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_EntregarPedido</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="StartEvent_SolicitudRecibida" name="Solicitud de pedido recibida">
+      <bpmn:documentation>Inicio por mensaje del cliente. Trazabilidad: N-CA-01, N-CA-05.</bpmn:documentation>
+      <bpmn:outgoing>Flow_01</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_StartEvent_SolicitudRecibida" messageRef="Message_SolicitudPedido" />
+    </bpmn:startEvent>
+    <bpmn:userTask id="Task_RegistrarPedido" name="Registrar pedido y crear versión vigente">
+      <bpmn:documentation>Registra el pedido en una única versión vigente y distingue la promesa preliminar del compromiso confirmado. Trazabilidad: N-CA-01, G-CA-D-01, G-CA-N-02, R-CA-F-01, R-CA-D-01, R-CA-RG-01.</bpmn:documentation>
+      <bpmn:incoming>Flow_01</bpmn:incoming>
+      <bpmn:outgoing>Flow_02</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="Gateway_Merge" gatewayDirection="Converging">
+      <bpmn:documentation>Confluencia: primera versión del pedido o nueva versión tras un cambio.</bpmn:documentation>
+      <bpmn:incoming>Flow_02</bpmn:incoming>
+      <bpmn:incoming>Flow_23</bpmn:incoming>
+      <bpmn:outgoing>Flow_03</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:parallelGateway id="Gateway_SplitParalelo" gatewayDirection="Diverging">
+      <bpmn:documentation>Disponibilidad de stock y evaluación de crédito se solicitan en paralelo al registrar el pedido. Trazabilidad: N-CA-02, N-CA-03.</bpmn:documentation>
+      <bpmn:incoming>Flow_03</bpmn:incoming>
+      <bpmn:outgoing>Flow_04</bpmn:outgoing>
+      <bpmn:outgoing>Flow_05</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:userTask id="Task_VerificarStock" name="Verificar stock utilizable y separaciones">
+      <bpmn:documentation>Almacén confirma las existencias realmente utilizables y las separaciones pendientes. La definición de stock disponible sigue pendiente (U-02). Trazabilidad: N-CA-02, G-CA-N-02, R-CA-F-03, R-CA-I-01.</bpmn:documentation>
+      <bpmn:incoming>Flow_04</bpmn:incoming>
+      <bpmn:incoming>Flow_09</bpmn:incoming>
+      <bpmn:outgoing>Flow_06</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="Gateway_Stock" name="¿Stock utilizable confirmado?" gatewayDirection="Diverging">
+      <bpmn:documentation>Compuerta 1, excepción de stock. Si Almacén detecta una diferencia física no hay confirmación definitiva. Trazabilidad: R-CA-RG-02.</bpmn:documentation>
+      <bpmn:incoming>Flow_06</bpmn:incoming>
+      <bpmn:outgoing>Flow_07</bpmn:outgoing>
+      <bpmn:outgoing>Flow_08</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="Task_Renegociar" name="Solicitar sustitución o renegociar con el cliente">
+      <bpmn:documentation>Ventas gestiona una sustitución autorizada por Almacén o renegocia con el cliente; si cambia el pedido se registra una nueva versión. Trazabilidad: N-CA-02, N-CA-01.</bpmn:documentation>
+      <bpmn:incoming>Flow_08</bpmn:incoming>
+      <bpmn:outgoing>Flow_09</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Task_EvaluarCredito" name="Evaluar crédito del cliente">
+      <bpmn:documentation>Créditos determina si el pedido está aprobado, observado o bloqueado. La política CR-01 exige autorización antes del despacho. Trazabilidad: N-CA-03, G-CA-N-01, R-CA-I-02.</bpmn:documentation>
+      <bpmn:incoming>Flow_05</bpmn:incoming>
+      <bpmn:outgoing>Flow_10</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="Gateway_Credito" name="¿Crédito conforme?" gatewayDirection="Diverging">
+      <bpmn:documentation>Compuerta 2, excepción de crédito. Trazabilidad: R-CA-RG-03.</bpmn:documentation>
+      <bpmn:incoming>Flow_10</bpmn:incoming>
+      <bpmn:outgoing>Flow_11</bpmn:outgoing>
+      <bpmn:outgoing>Flow_12</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="Task_AprobarCredito" name="Aprobar crédito y registrar estado y autor">
+      <bpmn:documentation>Registra el estado de aprobación y quién decidió (Créditos o jefatura competente). Trazabilidad: R-CA-I-02, R-CA-RG-03.</bpmn:documentation>
+      <bpmn:incoming>Flow_11</bpmn:incoming>
+      <bpmn:incoming>Flow_14</bpmn:incoming>
+      <bpmn:outgoing>Flow_17</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Task_EvaluarExcepcion" name="Evaluar excepción de crédito (Jefatura)">
+      <bpmn:documentation>La jefatura competente decide si autoriza una excepción. Quién puede autorizarla sigue pendiente (U-03). Trazabilidad: N-CA-03.</bpmn:documentation>
+      <bpmn:incoming>Flow_12</bpmn:incoming>
+      <bpmn:outgoing>Flow_13</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="Gateway_Excepcion" name="¿Excepción aprobada?" gatewayDirection="Diverging">
+      <bpmn:documentation>Si la excepción no se aprueba, el pedido queda retenido.</bpmn:documentation>
+      <bpmn:incoming>Flow_13</bpmn:incoming>
+      <bpmn:outgoing>Flow_14</bpmn:outgoing>
+      <bpmn:outgoing>Flow_15</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="Task_NotificarRetencion" name="Notificar a Ventas la retención del pedido y su motivo">
+      <bpmn:documentation>Créditos informa a Ventas que el pedido queda retenido y el motivo.</bpmn:documentation>
+      <bpmn:incoming>Flow_15</bpmn:incoming>
+      <bpmn:outgoing>Flow_16</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="EndEvent_Retenido" name="Pedido retenido por crédito no aprobado">
+      <bpmn:documentation>Fin con terminación: el pedido retenido detiene las demás ramas en curso.</bpmn:documentation>
+      <bpmn:incoming>Flow_16</bpmn:incoming>
+      <bpmn:terminateEventDefinition id="TerminateEventDefinition_EndEvent_Retenido" />
+    </bpmn:endEvent>
+    <bpmn:parallelGateway id="Gateway_Join" gatewayDirection="Converging">
+      <bpmn:documentation>Se continúa solo con stock utilizable confirmado y crédito conforme o excepción autorizada.</bpmn:documentation>
+      <bpmn:incoming>Flow_07</bpmn:incoming>
+      <bpmn:incoming>Flow_17</bpmn:incoming>
+      <bpmn:outgoing>Flow_18</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:intermediateThrowEvent id="Event_PickingHabilitado" name="Picking habilitado con versión vigente del pedido">
+      <bpmn:documentation>Hito de control: el picking se habilita con la versión vigente del pedido. Variante conservadora: exige crédito conforme o excepción autorizada antes de preparar; la condición R2b (picking antes del crédito) sigue pendiente de decisor (U-03). Trazabilidad: G-CA-N-01, R-CA-F-01, R-CA-RG-03, R-CA-RG-04.</bpmn:documentation>
+      <bpmn:incoming>Flow_18</bpmn:incoming>
+      <bpmn:outgoing>Flow_19</bpmn:outgoing>
+    </bpmn:intermediateThrowEvent>
+    <bpmn:manualTask id="Task_PrepararPedido" name="Preparar pedido y registrar fin de picking">
+      <bpmn:documentation>Almacén prepara el pedido con la versión vigente y registra el fin de picking. Trazabilidad: R-CA-I-01.</bpmn:documentation>
+      <bpmn:incoming>Flow_19</bpmn:incoming>
+      <bpmn:outgoing>Flow_20</bpmn:outgoing>
+    </bpmn:manualTask>
+    <bpmn:userTask id="Task_VerificarCambios" name="Verificar versión vigente y cambios antes del despacho">
+      <bpmn:documentation>Ventas revisa si el cliente o Ventas modificaron el pedido después de habilitar el picking. Recibe las solicitudes de cambio del cliente. Trazabilidad: N-CA-01, R-CA-F-04.</bpmn:documentation>
+      <bpmn:incoming>Flow_20</bpmn:incoming>
+      <bpmn:outgoing>Flow_21</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="Gateway_Cambio" name="¿Cliente o Ventas cambiaron el pedido antes del despacho?" gatewayDirection="Diverging">
+      <bpmn:documentation>Compuerta 3, modificación del pedido. Un cambio invalida las verificaciones anteriores. Trazabilidad: R-CA-RG-05.</bpmn:documentation>
+      <bpmn:incoming>Flow_21</bpmn:incoming>
+      <bpmn:outgoing>Flow_22</bpmn:outgoing>
+      <bpmn:outgoing>Flow_24</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="Task_NuevaVersion" name="Anular versión previa, crear nueva y reevaluar stock y crédito">
+      <bpmn:documentation>Anula la versión previa, crea una versión nueva con autor, fecha-hora y motivo, y reevalúa stock y crédito volviendo al inicio de las verificaciones. Trazabilidad: N-CA-01, G-CA-D-01, R-CA-D-01, R-CA-F-04.</bpmn:documentation>
+      <bpmn:incoming>Flow_22</bpmn:incoming>
+      <bpmn:outgoing>Flow_23</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sendTask id="Task_NotificarEstado" name="Notificar estado y ventana de entrega al cliente">
+      <bpmn:documentation>Informa al cliente un estado y una ventana coherentes con la versión vigente. Trazabilidad: N-CA-05, G-CA-N-02, R-CA-F-05.</bpmn:documentation>
+      <bpmn:incoming>Flow_24</bpmn:incoming>
+      <bpmn:outgoing>Flow_25</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:userTask id="Task_EnviarPedidoApto" name="Enviar pedido apto a Despacho">
+      <bpmn:documentation>Entrega a Despacho dirección, bultos, estado de preparación y versión vigente. Trazabilidad: N-CA-04, G-CA-A-01, R-CA-I-03.</bpmn:documentation>
+      <bpmn:incoming>Flow_25</bpmn:incoming>
+      <bpmn:outgoing>Flow_26</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="Gateway_Corte" name="¿Dirección y pedido estables antes del corte de ruta (13:40–13:45)?" gatewayDirection="Diverging">
+      <bpmn:documentation>Cierre de ruta del mismo día entre 13:40 y 13:45 (R6; vigencia por confirmar). Trazabilidad: N-CA-04, G-CA-N-03, R-CA-RG-05.</bpmn:documentation>
+      <bpmn:incoming>Flow_26</bpmn:incoming>
+      <bpmn:outgoing>Flow_27</bpmn:outgoing>
+      <bpmn:outgoing>Flow_28</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="Task_AsignarRuta" name="Asignar y cerrar ruta">
+      <bpmn:documentation>Despacho asigna el pedido a una ruta y la cierra. Trazabilidad: N-CA-04.</bpmn:documentation>
+      <bpmn:incoming>Flow_27</bpmn:incoming>
+      <bpmn:incoming>Flow_30</bpmn:incoming>
+      <bpmn:outgoing>Flow_31</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Task_ReplanificarRuta" name="Replanificar ruta y recalcular ventana">
+      <bpmn:documentation>Despacho replanifica cuando la dirección o el pedido cambian cerca del corte y recalcula la ventana. Trazabilidad: N-CA-04, G-CA-N-03, R-CA-D-02.</bpmn:documentation>
+      <bpmn:incoming>Flow_28</bpmn:incoming>
+      <bpmn:outgoing>Flow_29</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sendTask id="Task_AvisarCambio" name="Avisar cambio de ventana al cliente">
+      <bpmn:documentation>Ventas comunica al cliente el cambio de ventana antes de la entrega. Trazabilidad: N-CA-05, R-CA-F-06.</bpmn:documentation>
+      <bpmn:incoming>Flow_29</bpmn:incoming>
+      <bpmn:outgoing>Flow_30</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:manualTask id="Task_EntregarPedido" name="Entregar pedido y registrar fecha-hora real">
+      <bpmn:documentation>El transportista entrega y Despacho registra la fecha-hora real. Trazabilidad: N-CA-06, R-CA-D-03.</bpmn:documentation>
+      <bpmn:incoming>Flow_31</bpmn:incoming>
+      <bpmn:outgoing>Flow_32</bpmn:outgoing>
+    </bpmn:manualTask>
+    <bpmn:userTask id="Task_VerificarEntrega" name="Verificar entrega y estado del pedido; registrar resultado">
+      <bpmn:documentation>Ventas verifica el estado final y registra el resultado frente a la ventana prometida. Trazabilidad: N-CA-06, G-CA-D-02, R-CA-RG-06.</bpmn:documentation>
+      <bpmn:incoming>Flow_32</bpmn:incoming>
+      <bpmn:outgoing>Flow_33</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="EndEvent_Entregado" name="Pedido entregado en ventana y estado verificado">
+      <bpmn:documentation>Fin del proceso focal y cierre del value stream: se confirma la entrega y se registra el resultado.</bpmn:documentation>
+      <bpmn:incoming>Flow_33</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_01" sourceRef="StartEvent_SolicitudRecibida" targetRef="Task_RegistrarPedido" />
+    <bpmn:sequenceFlow id="Flow_02" sourceRef="Task_RegistrarPedido" targetRef="Gateway_Merge" />
+    <bpmn:sequenceFlow id="Flow_03" sourceRef="Gateway_Merge" targetRef="Gateway_SplitParalelo" />
+    <bpmn:sequenceFlow id="Flow_04" sourceRef="Gateway_SplitParalelo" targetRef="Task_VerificarStock" />
+    <bpmn:sequenceFlow id="Flow_05" sourceRef="Gateway_SplitParalelo" targetRef="Task_EvaluarCredito" />
+    <bpmn:sequenceFlow id="Flow_06" sourceRef="Task_VerificarStock" targetRef="Gateway_Stock" />
+    <bpmn:sequenceFlow id="Flow_07" name="Sí" sourceRef="Gateway_Stock" targetRef="Gateway_Join" />
+    <bpmn:sequenceFlow id="Flow_08" name="No" sourceRef="Gateway_Stock" targetRef="Task_Renegociar" />
+    <bpmn:sequenceFlow id="Flow_09" sourceRef="Task_Renegociar" targetRef="Task_VerificarStock" />
+    <bpmn:sequenceFlow id="Flow_10" sourceRef="Task_EvaluarCredito" targetRef="Gateway_Credito" />
+    <bpmn:sequenceFlow id="Flow_11" name="Sí" sourceRef="Gateway_Credito" targetRef="Task_AprobarCredito" />
+    <bpmn:sequenceFlow id="Flow_12" name="No" sourceRef="Gateway_Credito" targetRef="Task_EvaluarExcepcion" />
+    <bpmn:sequenceFlow id="Flow_13" sourceRef="Task_EvaluarExcepcion" targetRef="Gateway_Excepcion" />
+    <bpmn:sequenceFlow id="Flow_14" name="Sí" sourceRef="Gateway_Excepcion" targetRef="Task_AprobarCredito" />
+    <bpmn:sequenceFlow id="Flow_15" name="No" sourceRef="Gateway_Excepcion" targetRef="Task_NotificarRetencion" />
+    <bpmn:sequenceFlow id="Flow_16" sourceRef="Task_NotificarRetencion" targetRef="EndEvent_Retenido" />
+    <bpmn:sequenceFlow id="Flow_17" sourceRef="Task_AprobarCredito" targetRef="Gateway_Join" />
+    <bpmn:sequenceFlow id="Flow_18" sourceRef="Gateway_Join" targetRef="Event_PickingHabilitado" />
+    <bpmn:sequenceFlow id="Flow_19" sourceRef="Event_PickingHabilitado" targetRef="Task_PrepararPedido" />
+    <bpmn:sequenceFlow id="Flow_20" sourceRef="Task_PrepararPedido" targetRef="Task_VerificarCambios" />
+    <bpmn:sequenceFlow id="Flow_21" sourceRef="Task_VerificarCambios" targetRef="Gateway_Cambio" />
+    <bpmn:sequenceFlow id="Flow_22" name="Sí" sourceRef="Gateway_Cambio" targetRef="Task_NuevaVersion" />
+    <bpmn:sequenceFlow id="Flow_23" sourceRef="Task_NuevaVersion" targetRef="Gateway_Merge" />
+    <bpmn:sequenceFlow id="Flow_24" name="No" sourceRef="Gateway_Cambio" targetRef="Task_NotificarEstado" />
+    <bpmn:sequenceFlow id="Flow_25" sourceRef="Task_NotificarEstado" targetRef="Task_EnviarPedidoApto" />
+    <bpmn:sequenceFlow id="Flow_26" sourceRef="Task_EnviarPedidoApto" targetRef="Gateway_Corte" />
+    <bpmn:sequenceFlow id="Flow_27" name="Sí" sourceRef="Gateway_Corte" targetRef="Task_AsignarRuta" />
+    <bpmn:sequenceFlow id="Flow_28" name="No" sourceRef="Gateway_Corte" targetRef="Task_ReplanificarRuta" />
+    <bpmn:sequenceFlow id="Flow_29" sourceRef="Task_ReplanificarRuta" targetRef="Task_AvisarCambio" />
+    <bpmn:sequenceFlow id="Flow_30" sourceRef="Task_AvisarCambio" targetRef="Task_AsignarRuta" />
+    <bpmn:sequenceFlow id="Flow_31" sourceRef="Task_AsignarRuta" targetRef="Task_EntregarPedido" />
+    <bpmn:sequenceFlow id="Flow_32" sourceRef="Task_EntregarPedido" targetRef="Task_VerificarEntrega" />
+    <bpmn:sequenceFlow id="Flow_33" sourceRef="Task_VerificarEntrega" targetRef="EndEvent_Entregado" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_TOBE">
+    <bpmndi:BPMNPlane id="BPMNPlane_TOBE" bpmnElement="Collaboration_TOBE_AtenderPedido">
+      <bpmndi:BPMNShape id="Participant_Cliente_di" bpmnElement="Participant_Cliente" isHorizontal="true">
+        <dc:Bounds x="160" y="60" width="3220" height="150" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_Andina_di" bpmnElement="Participant_Andina" isHorizontal="true">
+        <dc:Bounds x="160" y="260" width="3220" height="910" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Ventas_di" bpmnElement="Lane_Ventas" isHorizontal="true">
+        <dc:Bounds x="190" y="260" width="3190" height="260" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Almacen_di" bpmnElement="Lane_Almacen" isHorizontal="true">
+        <dc:Bounds x="190" y="520" width="3190" height="170" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Creditos_di" bpmnElement="Lane_Creditos" isHorizontal="true">
+        <dc:Bounds x="190" y="690" width="3190" height="250" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Despacho_di" bpmnElement="Lane_Despacho" isHorizontal="true">
+        <dc:Bounds x="190" y="940" width="3190" height="230" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_Cliente_di" bpmnElement="StartEvent_Cliente">
+        <dc:Bounds x="212" y="117" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="190" y="157" width="80" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="SendTask_SolicitarPedido_di" bpmnElement="SendTask_SolicitarPedido">
+        <dc:Bounds x="270" y="95" width="140" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Catch_EstadoVentana_di" bpmnElement="Catch_EstadoVentana">
+        <dc:Bounds x="2142" y="117" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2090" y="72" width="140" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ReceiveTask_PedidoEntregado_di" bpmnElement="ReceiveTask_PedidoEntregado">
+        <dc:Bounds x="2880" y="95" width="140" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_Cliente_di" bpmnElement="EndEvent_Cliente">
+        <dc:Bounds x="3132" y="117" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3090" y="157" width="120" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_SolicitudRecibida_di" bpmnElement="StartEvent_SolicitudRecibida">
+        <dc:Bounds x="322" y="412" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="280" y="452" width="120" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_RegistrarPedido_di" bpmnElement="Task_RegistrarPedido">
+        <dc:Bounds x="420" y="390" width="140" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_Merge_di" bpmnElement="Gateway_Merge" isMarkerVisible="true">
+        <dc:Bounds x="595" y="405" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_SplitParalelo_di" bpmnElement="Gateway_SplitParalelo">
+        <dc:Bounds x="685" y="405" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_VerificarStock_di" bpmnElement="Task_VerificarStock">
+        <dc:Bounds x="790" y="565" width="140" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_Stock_di" bpmnElement="Gateway_Stock" isMarkerVisible="true">
+        <dc:Bounds x="985" y="580" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="950" y="634" width="120" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Renegociar_di" bpmnElement="Task_Renegociar">
+        <dc:Bounds x="940" y="390" width="140" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_EvaluarCredito_di" bpmnElement="Task_EvaluarCredito">
+        <dc:Bounds x="790" y="715" width="140" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_Credito_di" bpmnElement="Gateway_Credito" isMarkerVisible="true">
+        <dc:Bounds x="985" y="730" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="950" y="704" width="120" height="20" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_AprobarCredito_di" bpmnElement="Task_AprobarCredito">
+        <dc:Bounds x="1090" y="715" width="140" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_EvaluarExcepcion_di" bpmnElement="Task_EvaluarExcepcion">
+        <dc:Bounds x="940" y="840" width="140" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_Excepcion_di" bpmnElement="Gateway_Excepcion" isMarkerVisible="true">
+        <dc:Bounds x="1135" y="855" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1095" y="908" width="130" height="20" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_NotificarRetencion_di" bpmnElement="Task_NotificarRetencion">
+        <dc:Bounds x="1260" y="840" width="140" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_Retenido_di" bpmnElement="EndEvent_Retenido">
+        <dc:Bounds x="1482" y="862" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1430" y="816" width="140" height="42" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_Join_di" bpmnElement="Gateway_Join">
+        <dc:Bounds x="1395" y="405" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_PickingHabilitado_di" bpmnElement="Event_PickingHabilitado">
+        <dc:Bounds x="1512" y="412" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1465" y="366" width="130" height="42" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_PrepararPedido_di" bpmnElement="Task_PrepararPedido">
+        <dc:Bounds x="1600" y="565" width="140" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_VerificarCambios_di" bpmnElement="Task_VerificarCambios">
+        <dc:Bounds x="1790" y="390" width="140" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_Cambio_di" bpmnElement="Gateway_Cambio" isMarkerVisible="true">
+        <dc:Bounds x="1985" y="405" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1925" y="458" width="170" height="48" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_NuevaVersion_di" bpmnElement="Task_NuevaVersion">
+        <dc:Bounds x="1940" y="270" width="140" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_NotificarEstado_di" bpmnElement="Task_NotificarEstado">
+        <dc:Bounds x="2090" y="390" width="140" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_EnviarPedidoApto_di" bpmnElement="Task_EnviarPedidoApto">
+        <dc:Bounds x="2280" y="390" width="140" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_Corte_di" bpmnElement="Gateway_Corte" isMarkerVisible="true">
+        <dc:Bounds x="2515" y="980" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2360" y="980" width="150" height="50" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_AsignarRuta_di" bpmnElement="Task_AsignarRuta">
+        <dc:Bounds x="2620" y="965" width="140" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_ReplanificarRuta_di" bpmnElement="Task_ReplanificarRuta">
+        <dc:Bounds x="2470" y="1080" width="140" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_AvisarCambio_di" bpmnElement="Task_AvisarCambio">
+        <dc:Bounds x="2730" y="390" width="140" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_EntregarPedido_di" bpmnElement="Task_EntregarPedido">
+        <dc:Bounds x="2880" y="965" width="140" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_VerificarEntrega_di" bpmnElement="Task_VerificarEntrega">
+        <dc:Bounds x="3040" y="390" width="140" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_Entregado_di" bpmnElement="EndEvent_Entregado">
+        <dc:Bounds x="3262" y="412" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3200" y="452" width="160" height="42" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_C1_di" bpmnElement="Flow_C1">
+        <di:waypoint x="248" y="135" />
+        <di:waypoint x="270" y="135" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_C2_di" bpmnElement="Flow_C2">
+        <di:waypoint x="410" y="135" />
+        <di:waypoint x="2142" y="135" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_C3_di" bpmnElement="Flow_C3">
+        <di:waypoint x="2178" y="135" />
+        <di:waypoint x="2880" y="135" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_C4_di" bpmnElement="Flow_C4">
+        <di:waypoint x="3020" y="135" />
+        <di:waypoint x="3132" y="135" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_01_di" bpmnElement="Flow_01">
+        <di:waypoint x="358" y="430" />
+        <di:waypoint x="420" y="430" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_02_di" bpmnElement="Flow_02">
+        <di:waypoint x="560" y="430" />
+        <di:waypoint x="595" y="430" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_03_di" bpmnElement="Flow_03">
+        <di:waypoint x="645" y="430" />
+        <di:waypoint x="685" y="430" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_04_di" bpmnElement="Flow_04">
+        <di:waypoint x="735" y="430" />
+        <di:waypoint x="760" y="430" />
+        <di:waypoint x="760" y="605" />
+        <di:waypoint x="790" y="605" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_05_di" bpmnElement="Flow_05">
+        <di:waypoint x="710" y="455" />
+        <di:waypoint x="710" y="755" />
+        <di:waypoint x="790" y="755" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_06_di" bpmnElement="Flow_06">
+        <di:waypoint x="930" y="605" />
+        <di:waypoint x="985" y="605" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_07_di" bpmnElement="Flow_07">
+        <di:waypoint x="1035" y="605" />
+        <di:waypoint x="1360" y="605" />
+        <di:waypoint x="1360" y="430" />
+        <di:waypoint x="1395" y="430" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1043" y="585" width="20" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_08_di" bpmnElement="Flow_08">
+        <di:waypoint x="1010" y="580" />
+        <di:waypoint x="1010" y="470" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1016" y="558" width="20" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_09_di" bpmnElement="Flow_09">
+        <di:waypoint x="940" y="430" />
+        <di:waypoint x="860" y="430" />
+        <di:waypoint x="860" y="565" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_10_di" bpmnElement="Flow_10">
+        <di:waypoint x="930" y="755" />
+        <di:waypoint x="985" y="755" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_11_di" bpmnElement="Flow_11">
+        <di:waypoint x="1035" y="755" />
+        <di:waypoint x="1090" y="755" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1043" y="735" width="20" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_12_di" bpmnElement="Flow_12">
+        <di:waypoint x="1010" y="780" />
+        <di:waypoint x="1010" y="840" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1016" y="786" width="20" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_13_di" bpmnElement="Flow_13">
+        <di:waypoint x="1080" y="880" />
+        <di:waypoint x="1135" y="880" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_14_di" bpmnElement="Flow_14">
+        <di:waypoint x="1160" y="855" />
+        <di:waypoint x="1160" y="795" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1166" y="833" width="20" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_15_di" bpmnElement="Flow_15">
+        <di:waypoint x="1185" y="880" />
+        <di:waypoint x="1260" y="880" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1193" y="860" width="20" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_16_di" bpmnElement="Flow_16">
+        <di:waypoint x="1400" y="880" />
+        <di:waypoint x="1482" y="880" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_17_di" bpmnElement="Flow_17">
+        <di:waypoint x="1230" y="755" />
+        <di:waypoint x="1420" y="755" />
+        <di:waypoint x="1420" y="455" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_18_di" bpmnElement="Flow_18">
+        <di:waypoint x="1445" y="430" />
+        <di:waypoint x="1512" y="430" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_19_di" bpmnElement="Flow_19">
+        <di:waypoint x="1530" y="448" />
+        <di:waypoint x="1530" y="605" />
+        <di:waypoint x="1600" y="605" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_20_di" bpmnElement="Flow_20">
+        <di:waypoint x="1740" y="605" />
+        <di:waypoint x="1860" y="605" />
+        <di:waypoint x="1860" y="470" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_21_di" bpmnElement="Flow_21">
+        <di:waypoint x="1930" y="430" />
+        <di:waypoint x="1985" y="430" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_22_di" bpmnElement="Flow_22">
+        <di:waypoint x="2010" y="405" />
+        <di:waypoint x="2010" y="350" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2016" y="383" width="20" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_23_di" bpmnElement="Flow_23">
+        <di:waypoint x="1940" y="310" />
+        <di:waypoint x="620" y="310" />
+        <di:waypoint x="620" y="405" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_24_di" bpmnElement="Flow_24">
+        <di:waypoint x="2035" y="430" />
+        <di:waypoint x="2090" y="430" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2043" y="410" width="20" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_25_di" bpmnElement="Flow_25">
+        <di:waypoint x="2230" y="430" />
+        <di:waypoint x="2280" y="430" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_26_di" bpmnElement="Flow_26">
+        <di:waypoint x="2420" y="430" />
+        <di:waypoint x="2540" y="430" />
+        <di:waypoint x="2540" y="980" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_27_di" bpmnElement="Flow_27">
+        <di:waypoint x="2565" y="1005" />
+        <di:waypoint x="2620" y="1005" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2573" y="985" width="20" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_28_di" bpmnElement="Flow_28">
+        <di:waypoint x="2540" y="1030" />
+        <di:waypoint x="2540" y="1080" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2546" y="1036" width="20" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_29_di" bpmnElement="Flow_29">
+        <di:waypoint x="2610" y="1120" />
+        <di:waypoint x="2800" y="1120" />
+        <di:waypoint x="2800" y="470" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_30_di" bpmnElement="Flow_30">
+        <di:waypoint x="2730" y="430" />
+        <di:waypoint x="2690" y="430" />
+        <di:waypoint x="2690" y="965" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_31_di" bpmnElement="Flow_31">
+        <di:waypoint x="2760" y="1005" />
+        <di:waypoint x="2880" y="1005" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_32_di" bpmnElement="Flow_32">
+        <di:waypoint x="3020" y="1005" />
+        <di:waypoint x="3110" y="1005" />
+        <di:waypoint x="3110" y="470" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_33_di" bpmnElement="Flow_33">
+        <di:waypoint x="3180" y="430" />
+        <di:waypoint x="3262" y="430" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MessageFlow_1_di" bpmnElement="MessageFlow_1">
+        <di:waypoint x="340" y="175" />
+        <di:waypoint x="340" y="412" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="346" y="216" width="100" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MessageFlow_2_di" bpmnElement="MessageFlow_2">
+        <di:waypoint x="2160" y="390" />
+        <di:waypoint x="2160" y="153" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2166" y="216" width="110" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MessageFlow_3_di" bpmnElement="MessageFlow_3">
+        <di:waypoint x="2950" y="965" />
+        <di:waypoint x="2950" y="175" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2956" y="216" width="100" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MessageFlow_4_di" bpmnElement="MessageFlow_4">
+        <di:waypoint x="2800" y="390" />
+        <di:waypoint x="2800" y="210" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2806" y="216" width="110" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MessageFlow_5_di" bpmnElement="MessageFlow_5">
+        <di:waypoint x="1860" y="210" />
+        <di:waypoint x="1860" y="390" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1866" y="214" width="140" height="42" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
