@@ -1,0 +1,10 @@
+﻿Código,Qué consta en S6/S9 (sin ampliar)
+E33,"Muestra de 200 pedidos: 144 en ventana y 56 fuera. Señales: 22 picking antes del registro final, 19 diferencia de stock o sustitución, 15 crédito posterior al picking, 13 rutas reabiertas, 11 direcciones corregidas, 8 con dos versiones (pueden coincidir; no se suman)."
+E34,"Seis pedidos analizados (P-1051, P-1079, P-1084, P-1093 y otros): 4/6 tardíos, 6/6 entregados el mismo día; los 4 tardíos con crédito aprobado después de las 12:00. n = 6: asociaciones, no causas."
+E35,Procedimiento VTA-02 y política CR-01 (CR-01 exige autorización de crédito antes de despachar; no regula el picking).
+E36,"Términos de estado inconsistentes entre actores («confirmado», «listo», «stock disponible», «a tiempo»)."
+E38,"Observación de picking iniciado antes del registro final, cambios de cantidades y cierre de ruta cercano a las 13:40."
+E39,Citada en la matriz S9 para la secuencia crédito–picking; el texto original está en el material de S6 (por confirmar).
+E40,Mensajes contradictorios recibidos por clientes (C-17: se enteran cuando ya esperan; C-42: estados distintos según la persona).
+E41,"Andina360 registra pedidos y crédito, pero no cubre confiablemente el picking real, WhatsApp ni el cierre de ruta."
+E42,"Dudas sobre reglas, frecuencia e integración de fuentes."

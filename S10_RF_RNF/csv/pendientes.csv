@@ -1,0 +1,16 @@
+﻿ID,Pendiente,Origen,Quién lo cierra,Requisitos afectados
+U-01,Porcentaje de vendedores que adelantan el picking y efecto real,S6,Ventas,"BR-CA-01, R-CA-F-01"
+U-02,Definición única de «stock disponible»,S6,"Almacén, Ventas, TI","R-CA-F-03, R-CA-IF-01, BR-CA-04"
+U-03 / R2b,Autoridad para excepciones de crédito y condición de preparar antes del crédito,S6,Créditos / jefatura competente,"BR-CA-01, BR-CA-02, R-CA-IF-02"
+U-04,Origen y frecuencia de los cambios tras el cierre de ruta,S6,Despacho,"BR-CA-03, R-CA-F-04, R-CA-D-01"
+U-05,Información mínima para el cliente,S6,"Ventas, clientes",R-CA-F-05
+R4,Quién fija la versión oficial del pedido,S6,Por identificar,"R-CA-F-01, R-CA-F-02, R-CA-D-01"
+Q-CA-01 / R1,Timestamp oficial y dueño del KPI,S6,Gerencia / responsables de datos,"R-CA-D-02, R-CA-F-06"
+R6,Vigencia del cierre de ruta 13:40–13:45,S6,Despacho,BR-CA-03
+G-CA-T-01,Validación técnica de lectura y extracción de las fuentes,S9,TI,"R-CA-IF-01, R-CA-IF-02, R-CA-IF-03, R-CA-Q-03, RS-CA-02"
+P-S10-01,Roles reales y autoridad que los reconoce para registrar la habilitación,S10,Ventas / jefatura,R-CA-Q-01
+P-S10-02,Período de conservación de historial y registros,S10,"Gerencia, TI","R-CA-D-01, R-CA-D-02, R-CA-Q-02"
+P-S10-03,"Estados oficiales de pedido y de crédito, y sus transiciones",S10,"Ventas, Almacén, Créditos","BR-CA-02, BR-CA-04, R-CA-F-02"
+P-S10-04,"Insumos de TI para los RNF: horario, volumen concurrente, fuentes y exclusiones",S10,TI,"R-CA-Q-01, R-CA-Q-02, R-CA-Q-03"
+P-S10-05,Cómo se captura lo comunicado al cliente por WhatsApp o teléfono,S10,"Ventas, TI",R-CA-F-05
+P-S10-06,Decisión sobre un BPMN v2: modelar el evento «Cambio de pedido recibido». Hoy el cambio se verifica solo en la compuerta 3 y en el cierre de ruta; entre ambos puntos lo cubre únicamente el aviso de R-CA-F-04,S10 (hallazgo de revisión del BPMN),Equipo D,"R-CA-F-04, BR-CA-03"

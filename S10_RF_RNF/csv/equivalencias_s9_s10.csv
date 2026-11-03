@@ -1,0 +1,24 @@
+﻿ID en S9,ID en S10,Tratamiento,Observación
+R-CA-F-01,R-CA-F-01,Refinado,Se añade estado de verificación de stock y crédito; coincide con el ejemplo 10.1 de la guía.
+R-CA-F-02,R-CA-F-02,Refinado,Se precisan campos mostrados y casos de error.
+R-CA-D-01,R-CA-D-01,Refinado,Absorbe R-CA-D-02 de S9 (motivo de cambio tras el cierre).
+R-CA-RG-01,BR-CA-04,Reclasificado y fusionado,Pasa a regla de negocio; absorbe R-CA-RG-02.
+R-CA-F-03,R-CA-F-03,Refinado,Depende de la definición de stock (U-02).
+R-CA-I-01,R-CA-IF-01,Reclasificado,Cambia el ID: la guía S10 distingue información (D) de interfaz (IF).
+R-CA-RG-02,BR-CA-04,Fusionado,Confirmación definitiva y diferencia física en la misma regla.
+R-CA-I-02,R-CA-IF-02,Reclasificado,Se añaden excepciones y revocaciones.
+R-CA-RG-03,BR-CA-02,Refinado,Regla CR-01; estados y autoridad por validar.
+R-CA-RG-04,BR-CA-01,Fusionado,La condición R2b (preparar antes del crédito) sigue pendiente de decisor (U-03).
+R-CA-I-03,R-CA-IF-03,Reclasificado,Se añade el sentido Despacho → SoI (cierre y replanificación).
+R-CA-RG-05,BR-CA-03,Refinado,"Horario 13:40–13:45 (R6), vigencia por confirmar."
+R-CA-F-04,R-CA-F-04,Refinado,Se precisan verificaciones afectadas y destinatarios.
+R-CA-D-02,R-CA-D-01,Fusionado,Motivo y momento del cambio pasan a campos de D-01.
+R-CA-F-05,R-CA-F-05,Refinado y fusionado,Se reenfoca en registrar lo comunicado; absorbe R-CA-F-06.
+R-CA-F-06,R-CA-F-05,Fusionado,El aviso de cambio de ventana se cubre con la marca «desactualizada».
+R-CA-D-03,R-CA-D-02,Refinado,Cambia el ID de dato.
+R-CA-RG-06,R-CA-F-06,Derivado,Se deriva el tratamiento de la incidencia; la regla de cálculo del KPI queda diferida hasta cerrar R1.
+R-CA-NF-01,R-CA-Q-02,Refinado,Cambia el ID de RNF (guía S10: R-CA-Q); se añade integridad de trazas.
+R-CA-NF-02,R-CA-Q-03 / RS-CA-02,Derivado,Se redacta la parte de desempeño con supuestos académicos; disponibilidad y extracción quedan pendientes de TI (G-CA-T-01).
+—,R-CA-Q-01,Nuevo,Seguridad / control de acceso (ejemplo 10.2 de la guía); sin candidato previo en S9.
+—,RS-CA-01,Nuevo,Formaliza la frontera del SoI de S9 como restricción.
+—,RS-CA-02,Nuevo,"Formaliza la restricción de no asumir APIs (E41, G-CA-T-01)."

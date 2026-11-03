@@ -1,0 +1,17 @@
+﻿AC,Requisito,Clase,Necesidad(es),Problema y objetivo,Evidencias,Escenarios
+AC-CA-01,R-CA-F-01,RF,"N-CA-01, N-CA-03",Entregas fuera de ventana (56/200) · Objetivo: entregar en la ventana comprometida · KPI 72 % → ≥ 95 %,"E33, E34, E36, E38, E40","ESC-01, ESC-02, ESC-03, ESC-04"
+AC-CA-02,R-CA-F-02,RF,"N-CA-01, N-CA-05",Entregas fuera de ventana (56/200) · Objetivo: entregar en la ventana comprometida · KPI 72 % → ≥ 95 %,"E34, E36, E38, E40","ESC-03, ESC-04, ESC-05"
+AC-CA-03,R-CA-F-03,RF,N-CA-02,Entregas fuera de ventana (56/200) · Objetivo: entregar en la ventana comprometida · KPI 72 % → ≥ 95 %,"E33, E35, E36, E41","ESC-10, ESC-04"
+AC-CA-04,R-CA-F-04,RF,"N-CA-01, N-CA-03, N-CA-04",Entregas fuera de ventana (56/200) · Objetivo: entregar en la ventana comprometida · KPI 72 % → ≥ 95 %,"E33, E34, E38, E41","ESC-03, ESC-07"
+AC-CA-05,R-CA-F-05,RF,N-CA-05,Entregas fuera de ventana (56/200) · Objetivo: entregar en la ventana comprometida · KPI 72 % → ≥ 95 %,"E36, E40, E41",ESC-08
+AC-CA-06,R-CA-F-06,RF,N-CA-06,Entregas fuera de ventana (56/200) · Objetivo: entregar en la ventana comprometida · KPI 72 % → ≥ 95 %,"E34, E36, E41, E42",ESC-09
+AC-CA-Q-01,R-CA-Q-01,RNF · Seguridad / control de acceso,"N-CA-01, N-CA-03",Entregas fuera de ventana (56/200) · Objetivo: entregar en la ventana comprometida · KPI 72 % → ≥ 95 %,"E35, E38, E41",ESC-05
+AC-CA-Q-02,R-CA-Q-02,RNF · Auditabilidad / integridad de trazas,"N-CA-01, N-CA-03, N-CA-04",Entregas fuera de ventana (56/200) · Objetivo: entregar en la ventana comprometida · KPI 72 % → ≥ 95 %,"E39, E41, E35",ESC-11
+AC-CA-Q-03,R-CA-Q-03,RNF · Desempeño de consulta,"N-CA-01, N-CA-05",Entregas fuera de ventana (56/200) · Objetivo: entregar en la ventana comprometida · KPI 72 % → ≥ 95 %,"E41, E42",ESC-06
+AC-CA-D-01,R-CA-D-01,Información,"N-CA-01, N-CA-04",Entregas fuera de ventana (56/200) · Objetivo: entregar en la ventana comprometida · KPI 72 % → ≥ 95 %,"E33, E35, E38, E41","ESC-03, ESC-07"
+AC-CA-D-02,R-CA-D-02,Información,N-CA-06,Entregas fuera de ventana (56/200) · Objetivo: entregar en la ventana comprometida · KPI 72 % → ≥ 95 %,"E34, E36, E41, E42","ESC-01, ESC-09"
+AC-CA-IF-01,R-CA-IF-01,Interfaz,N-CA-02,Entregas fuera de ventana (56/200) · Objetivo: entregar en la ventana comprometida · KPI 72 % → ≥ 95 %,"E35, E36, E41","ESC-10, ESC-04"
+AC-CA-IF-02,R-CA-IF-02,Interfaz,N-CA-03,Entregas fuera de ventana (56/200) · Objetivo: entregar en la ventana comprometida · KPI 72 % → ≥ 95 %,"E33, E35, E41",ESC-02
+AC-CA-IF-03,R-CA-IF-03,Interfaz,N-CA-04,Entregas fuera de ventana (56/200) · Objetivo: entregar en la ventana comprometida · KPI 72 % → ≥ 95 %,"E33, E35, E38, E41",ESC-07
+AC-CA-RS-01,RS-CA-01,Restricción,"N-CA-01, N-CA-02, N-CA-03, N-CA-04",Entregas fuera de ventana (56/200) · Objetivo: entregar en la ventana comprometida · KPI 72 % → ≥ 95 %,"E35, E41","ESC-01, ESC-02"
+AC-CA-RS-02,RS-CA-02,Restricción,"N-CA-01, N-CA-02, N-CA-03, N-CA-04, N-CA-05",Entregas fuera de ventana (56/200) · Objetivo: entregar en la ventana comprometida · KPI 72 % → ≥ 95 %,"E41, E42",ESC-06
