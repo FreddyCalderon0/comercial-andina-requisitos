@@ -68,7 +68,7 @@ Pendiente de revisión humana:
 
 - S9, S10 y S11 se subieron en commits anteriores, por lo que sus versiones quedan recuperables en el historial. Commit de S11: `130c87b7b6693e048255c5d543db7595b057ff78`.
 - Commit de S12 (mensaje sugerido): `S12: casos de uso UML y escenarios v1.0 (Equipo D)`
-- Referencia al commit S12: _(completar con el hash después del commit)_
+- Referencia al commit S12: f52812778d8951ea47943d9bbe3aa20497d27dc6
 
 ## Puente a la Semana 13
 
