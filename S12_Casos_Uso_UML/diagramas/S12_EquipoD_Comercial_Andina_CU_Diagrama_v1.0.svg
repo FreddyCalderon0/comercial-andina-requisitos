@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 930" width="1400" height="930" font-family="Arial, Liberation Sans, DejaVu Sans, sans-serif">
+<title>Diagrama UML de casos de uso · Comercial Andina · S12 v1.0</title>
+<rect width="1400" height="930" fill="#FFFFFF"/>
+<text x="30" y="36" font-size="22" font-weight="bold" fill="#1F3864">Casos de uso UML · Comercial Andina S.A.C. · Equipo D · Semana 12 · v1.0 · 2026-11-23</text>
+<text x="30" y="60" font-size="14" fill="#444">Los CU «candidato» no tienen RF ni HU aprobados: son propuestas por validar. UML modela el objetivo actor–SoI; no es BPMN.</text>
+<rect x="320" y="84" width="760" height="686" rx="6" fill="#FAFAFA" stroke="#333" stroke-width="2.5"/>
+<text x="700" y="110" font-size="18" font-weight="bold" text-anchor="middle" fill="#1F3864">SoI · Sistema de consulta y registro de condiciones del pedido</text>
+<text x="700" y="130" font-size="14" text-anchor="middle" fill="#444">Comercial Andina · proceso «Atender pedido» · límite del sistema de interés</text>
+<line x1="168.0" y1="214.0" x2="480.0" y2="218.0" stroke="#333" stroke-width="2"/>
+<line x1="168.0" y1="369.0" x2="480.0" y2="373.0" stroke="#333" stroke-width="2"/>
+<line x1="168.0" y1="601.0" x2="504.2" y2="554.9" stroke="#333" stroke-width="2"/>
+<line x1="168.0" y1="601.0" x2="504.8" y2="655.8" stroke="#333" stroke-width="2"/>
+<line x1="1222.0" y1="381.0" x2="845.6" y2="262.2" stroke="#333" stroke-width="2"/>
+<line x1="1222.0" y1="381.0" x2="919.3" y2="377.8" stroke="#333" stroke-width="2"/>
+<line x1="1222.0" y1="381.0" x2="858.0" y2="486.9" stroke="#333" stroke-width="2"/>
+<line x1="1222.0" y1="214.0" x2="920.0" y2="218.0" stroke="#333" stroke-width="2"/>
+<line x1="1222.0" y1="214.0" x2="794.5" y2="474.7" stroke="#333" stroke-width="2"/>
+<ellipse cx="700" cy="218" rx="220" ry="59" fill="#FFF3CD" stroke="#B7791F" stroke-width="2.5" stroke-dasharray="9 6"/>
+<text x="700" y="190" font-size="15" font-weight="bold" text-anchor="middle" fill="#B7791F">CU-CA-01</text>
+<text x="700" y="212" font-size="18" font-weight="bold" text-anchor="middle" fill="#111">Consultar condición previa</text>
+<text x="700" y="234" font-size="18" font-weight="bold" text-anchor="middle" fill="#111">al picking</text>
+<text x="700" y="256" font-size="13" font-style="italic" text-anchor="middle" fill="#333">base parcial + candidato · por validar</text>
+<ellipse cx="700" cy="373" rx="220" ry="59" fill="#FFF3CD" stroke="#B7791F" stroke-width="2.5" stroke-dasharray="9 6"/>
+<text x="700" y="345" font-size="15" font-weight="bold" text-anchor="middle" fill="#B7791F">CU-CA-02</text>
+<text x="700" y="367" font-size="18" font-weight="bold" text-anchor="middle" fill="#111">Consultar disponibilidad</text>
+<text x="700" y="389" font-size="18" font-weight="bold" text-anchor="middle" fill="#111">reportada</text>
+<text x="700" y="411" font-size="13" font-style="italic" text-anchor="middle" fill="#333">candidato · por validar</text>
+<ellipse cx="700" cy="528" rx="220" ry="59" fill="#FFF3CD" stroke="#B7791F" stroke-width="2.5" stroke-dasharray="9 6"/>
+<text x="700" y="500" font-size="15" font-weight="bold" text-anchor="middle" fill="#B7791F">CU-CA-03</text>
+<text x="700" y="522" font-size="18" font-weight="bold" text-anchor="middle" fill="#111">Registrar confirmación humana</text>
+<text x="700" y="544" font-size="18" font-weight="bold" text-anchor="middle" fill="#111">de despacho</text>
+<text x="700" y="566" font-size="13" font-style="italic" text-anchor="middle" fill="#333">candidato · por validar (sin RF/HU aprobados)</text>
+<ellipse cx="700" cy="683" rx="220" ry="59" fill="#DCEBFA" stroke="#2F5D9B" stroke-width="2.5"/>
+<text x="700" y="655" font-size="15" font-weight="bold" text-anchor="middle" fill="#2F5D9B">CU-CA-04</text>
+<text x="700" y="677" font-size="18" font-weight="bold" text-anchor="middle" fill="#111">Consultar incidente por</text>
+<text x="700" y="699" font-size="18" font-weight="bold" text-anchor="middle" fill="#111">cambio tardío</text>
+<text x="700" y="721" font-size="13" font-style="italic" text-anchor="middle" fill="#333">base S10 (R-CA-F-04)</text>
+<g stroke="#1F3864" stroke-width="2.5" fill="none" stroke-linecap="round">
+<circle cx="140" cy="190" r="13" fill="#FFFFFF"/>
+<line x1="140" y1="203" x2="140" y2="230"/>
+<line x1="116" y1="214" x2="164" y2="214"/>
+<line x1="140" y1="230" x2="122" y2="258"/>
+<line x1="140" y1="230" x2="158" y2="258"/>
+</g>
+<text x="140" y="282" font-size="16" font-weight="bold" text-anchor="middle" fill="#111">Operario de preparación</text>
+<text x="140" y="301" font-size="13" font-style="italic" text-anchor="middle" fill="#555">actor primario</text>
+<g stroke="#1F3864" stroke-width="2.5" fill="none" stroke-linecap="round">
+<circle cx="140" cy="345" r="13" fill="#FFFFFF"/>
+<line x1="140" y1="358" x2="140" y2="385"/>
+<line x1="116" y1="369" x2="164" y2="369"/>
+<line x1="140" y1="385" x2="122" y2="413"/>
+<line x1="140" y1="385" x2="158" y2="413"/>
+</g>
+<text x="140" y="437" font-size="16" font-weight="bold" text-anchor="middle" fill="#111">Almacenero</text>
+<text x="140" y="456" font-size="13" font-style="italic" text-anchor="middle" fill="#555">actor primario</text>
+<g stroke="#1F3864" stroke-width="2.5" fill="none" stroke-linecap="round">
+<circle cx="140" cy="577" r="13" fill="#FFFFFF"/>
+<line x1="140" y1="590" x2="140" y2="617"/>
+<line x1="116" y1="601" x2="164" y2="601"/>
+<line x1="140" y1="617" x2="122" y2="645"/>
+<line x1="140" y1="617" x2="158" y2="645"/>
+</g>
+<text x="140" y="669" font-size="16" font-weight="bold" text-anchor="middle" fill="#111">Coordinador de Despacho</text>
+<text x="140" y="688" font-size="13" font-style="italic" text-anchor="middle" fill="#555">actor primario</text>
+<g stroke="#1F3864" stroke-width="2.5" fill="none" stroke-linecap="round">
+<circle cx="1250" cy="357" r="13" fill="#FFFFFF"/>
+<line x1="1250" y1="370" x2="1250" y2="397"/>
+<line x1="1226" y1="381" x2="1274" y2="381"/>
+<line x1="1250" y1="397" x2="1232" y2="425"/>
+<line x1="1250" y1="397" x2="1268" y2="425"/>
+</g>
+<text x="1250" y="449" font-size="16" font-weight="bold" text-anchor="middle" fill="#111">Almacén</text>
+<text x="1250" y="468" font-size="13" font-style="italic" text-anchor="middle" fill="#555">actor secundario</text>
+<text x="1250" y="485" font-size="12" text-anchor="middle" fill="#555">(fuente del informe de saldo)</text>
+<g stroke="#1F3864" stroke-width="2.5" fill="none" stroke-linecap="round">
+<circle cx="1250" cy="190" r="13" fill="#FFFFFF"/>
+<line x1="1250" y1="203" x2="1250" y2="230"/>
+<line x1="1226" y1="214" x2="1274" y2="214"/>
+<line x1="1250" y1="230" x2="1232" y2="258"/>
+<line x1="1250" y1="230" x2="1268" y2="258"/>
+</g>
+<text x="1250" y="282" font-size="16" font-weight="bold" text-anchor="middle" fill="#111">Créditos</text>
+<text x="1250" y="301" font-size="13" font-style="italic" text-anchor="middle" fill="#555">actor secundario</text>
+<text x="1250" y="318" font-size="12" text-anchor="middle" fill="#555">(fuente del estado de crédito)</text>
+<rect x="30" y="800" width="1340" height="112" rx="6" fill="#F3F6FA" stroke="#9AA9BD"/>
+<text x="46" y="826" font-size="15" font-weight="bold" fill="#1F3864">Decisiones que permanecen fuera del SoI (RS-CA-01, D-S12-01)</text>
+<text x="46" y="848" font-size="14" fill="#222">Almacén certifica el stock físico y autoriza el picking · Créditos decide el crédito (CR-01) · Ventas confirma versión y compromiso ·</text>
+<text x="46" y="868" font-size="14" fill="#222">Despacho cierra, replanifica y decide la salida. Ventas y TI son interesados, no actores de estos CU. Asociaciones simples: sin «include» ni «extend».</text>
+<ellipse cx="62" cy="892" rx="26" ry="13" fill="#DCEBFA" stroke="#2F5D9B" stroke-width="2"/>
+<text x="98" y="897" font-size="13" fill="#222">Caso de uso con respaldo en el catálogo S10 (propuesto · por validar)</text>
+<ellipse cx="620" cy="892" rx="26" ry="13" fill="#FFF3CD" stroke="#B7791F" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="656" y="897" font-size="13" fill="#222">Caso de uso candidato · por validar (RF/HU no aprobados)</text>
+</svg>

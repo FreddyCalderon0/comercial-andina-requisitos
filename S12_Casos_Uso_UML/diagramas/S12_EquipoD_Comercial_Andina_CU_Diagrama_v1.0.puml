@@ -1,0 +1,35 @@
+@startuml S12_EquipoD_Comercial_Andina_CU_Diagrama_v1.0
+' Casos de uso UML · Comercial Andina S.A.C. · Equipo D · Semana 12 · v1.0 · 2026-11-23
+' Fuente editable. Misma estructura que el .drawio. No se pudo renderizar en esta sesión (sin PlantUML); revisar al abrirlo.
+left to right direction
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam defaultFontSize 14
+skinparam packageStyle rectangle
+title Casos de uso UML · Comercial Andina · S12 v1.0 · 2026-11-23\nLos CU «candidato» no tienen RF ni HU aprobados (por validar)
+actor "Operario de preparación\n(primario)" as OP
+actor "Almacenero\n(primario)" as AL
+actor "Coordinador de Despacho\n(primario)" as CD
+actor "Almacén\n(secundario: fuente del informe de saldo)" as ALM
+actor "Créditos\n(secundario: fuente del estado de crédito)" as CRE
+rectangle "SoI · Sistema de consulta y registro de condiciones del pedido\n(Comercial Andina · «Atender pedido»)" {
+  usecase "CU-CA-01\nConsultar condición previa al picking\n(base parcial + candidato · por validar)" as CUCA01 #FFF3CD;line:B7791F;line.dashed
+  usecase "CU-CA-02\nConsultar disponibilidad reportada\n(candidato · por validar)" as CUCA02 #FFF3CD;line:B7791F;line.dashed
+  usecase "CU-CA-03\nRegistrar confirmación humana de despacho\n(candidato · por validar (sin RF/HU aprobados))" as CUCA03 #FFF3CD;line:B7791F;line.dashed
+  usecase "CU-CA-04\nConsultar incidente por cambio tardío\n(base S10 (R-CA-F-04))" as CUCA04 #DCEBFA;line:2F5D9B
+}
+OP -- CUCA01
+AL -- CUCA02
+CD -- CUCA03
+CD -- CUCA04
+ALM -- CUCA01
+ALM -- CUCA02
+ALM -- CUCA03
+CRE -- CUCA01
+CRE -- CUCA03
+note bottom of CD
+  Decisiones fuera del SoI (RS-CA-01, D-S12-01): Almacén certifica stock y autoriza picking;
+  Créditos decide el crédito (CR-01); Ventas confirma versión y compromiso;
+  Despacho cierra, replanifica y decide la salida. Sin include/extend (Q-CA-S12-10).
+end note
+@enduml

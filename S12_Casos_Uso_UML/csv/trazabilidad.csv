@@ -1,0 +1,85 @@
+﻿Evidencia(s) → Necesidad(es),Brecha G-CA y cambio TO-BE (BPMN),"Requisito S10 (RF / RNF, con enunciado resumido)",Otros requisitos S10 y candidatos (no aprobados),HU (valor),CU S12 (objetivo),Estado del CU,HUAC (resultado aceptado),AC-CA de S10,Escenarios de prueba diseñados (ES-CA-12),Estado de la prueba
+"E33, E34, E35 (CR-01), E36, E38, E40; E39 (texto por confirmar) →
+N-CA-01 — Versión vigente y estable del pedido; promesa preliminar frente a confirmación
+N-CA-03 — Saber si el pedido está aprobado, observado o bloqueado y quién autoriza excepciones antes de habilitar el despacho","G-CA-D-01, G-CA-N-01
+Event_PickingHabilitado, Task_RegistrarPedido, Gateway_Stock, Gateway_Credito, Gateway_Join","R-CA-F-01 — Registrar la versión del pedido que sustenta la habilitación para preparación
+R-CA-F-02 — Consultar versión y estado vigentes del pedido
+R-CA-Q-01 — Control de acceso al registro de la habilitación
+R-CA-Q-03 — Tiempo de respuesta de la consulta de versión y estado","R-CA-IF-01 — Informe de Almacén hacia el SoI
+R-CA-IF-02 — Estado de crédito desde Créditos hacia el SoI
+BR-CA-01 — Hito «pedido apto para preparación»
+BR-CA-02 — Crédito conforme o excepción autorizada (CR-01)
+RS-CA-01 — El SoI no adquiere autoridad de decisión
+R-CA-F-CAND-S11-01 — Mostrar al personal de preparación la condición de aptitud («APTO», «NO APTO» con motivo, «NO VERIFICADO») sin autorizar el picking",HU-CA-01 — Consultar las condiciones registradas antes de iniciar el picking,"CU-CA-01 — Consultar condición previa al picking
+Conocer, antes de iniciar el picking, si el pedido y su versión tienen condiciones registradas y vigentes (crédito, saldo reportado, ruta).",Base parcial + candidato · por validar,"HUAC-CA-01 — Normal · P-2101/V2: el operario ve versión, crédito, saldo y ruta con fuente y hora
+HUAC-CA-02 — Negativo · P-2102/V1: «NO APTO · CRÉDITO OBSERVADO»; no autoriza picking
+HUAC-CA-12 — Seguridad (RNF) · P-2101/V2: cuenta sin rol denegada y auditada
+HUAC-CA-05 — Cambio de versión · P-2104 V2→V3: verificaciones de V2 «SIN VIGENCIA»
+HUAC-CA-06 — Excepción · P-2106/V1: «NO VERIFICADO» con datos faltantes; sin «APTO»","AC-CA-01 — Aptitud para preparación registrada con ID y versión (R-CA-F-01)
+AC-CA-02 — Versión y estado vigentes con fuente y hora (R-CA-F-02)
+AC-CA-IF-02 — Estado de crédito desde Créditos (R-CA-IF-02)
+AC-CA-Q-01 — Solicitudes autorizadas con identidad y hora; rol sin permiso denegado y auditado (R-CA-Q-01)
+AC-CA-RS-01 — No existe operación para decidir crédito, stock o rutas (RS-CA-01)","ES-CA-12-09, ES-CA-12-10","diseñado, no ejecutado"
+"E33 (19/200 diferencia de stock o sustitución), E35, E36, E41 →
+N-CA-02 — Conocer existencias realmente utilizables y separaciones pendientes antes de comprometer disponibilidad","G-CA-N-02, G-CA-D-01, G-CA-A-01
+Task_VerificarStock, Gateway_Stock, Task_PrepararPedido","R-CA-F-03 — Consultar disponibilidad utilizable y separaciones antes de confirmar el compromiso
+R-CA-F-02 — Consultar versión y estado vigentes del pedido
+R-CA-F-04 — Advertir los cambios que invalidan verificaciones previas
+R-CA-Q-01 — Control de acceso al registro de la habilitación","R-CA-IF-01 — Informe de Almacén hacia el SoI
+BR-CA-04 — Promesa preliminar frente a compromiso confirmado
+RS-CA-01 — El SoI no adquiere autoridad de decisión
+RS-CA-02 — No se asumen APIs ni integraciones existentes
+R-CA-F-CAND-S11-02 — Mostrar a Almacén, por ítem, cantidad requerida, saldo utilizable reportado y suficiencia o diferencia, con fuente y vigencia",HU-CA-02 — Visualizar la disponibilidad reportada para la versión del pedido,"CU-CA-02 — Consultar disponibilidad reportada
+Conocer la disponibilidad informada frente a la cantidad requerida del pedido y su versión, con fuente y vigencia, para detectar faltantes antes de que Ventas confirme disponibilidad.",Candidato · por validar,"HUAC-CA-03 — Normal · P-2101/V2: «SUFICIENTE (14/12)»; no reserva stock
+HUAC-CA-04 — Negativo · P-2103/V1: «INSUFICIENTE: faltan 7»; decisión humana de Almacén y Ventas
+HUAC-CA-11 — Excepción · P-2104 V2→V3: «INFORME DE VERSIÓN ANTERIOR (V2)»
+HUAC-CA-05 — Cambio de versión · P-2104 V2→V3: verificaciones de V2 «SIN VIGENCIA»
+HUAC-CA-06 — Excepción · P-2106/V1: «NO VERIFICADO» con datos faltantes; sin «APTO»","AC-CA-03 — Disponibilidad por ítem con diferencia reportada (R-CA-F-03)
+AC-CA-04 — Verificaciones previas «sin vigencia» y aviso registrado (R-CA-F-04)
+AC-CA-IF-01 — Informe de Almacén con correlación y vigencia (R-CA-IF-01)
+AC-CA-RS-01 — No existe operación para decidir crédito, stock o rutas (RS-CA-01)","ES-CA-12-01, ES-CA-12-02, ES-CA-12-03, ES-CA-12-08","diseñado, no ejecutado"
+"Contexto, no respaldo directo: E33 (13/200 rutas reabiertas; 11/200 direcciones corregidas), E34, E35, E38 (cierre cerca de 13:40), E41; D-S12-05 →
+N-CA-03 — Saber si el pedido está aprobado, observado o bloqueado y quién autoriza excepciones antes de habilitar el despacho
+N-CA-04 — Recibir dirección, bultos, preparación y cambios completos antes del cierre de ruta y saber cuándo replanificar
+NC-S12-01 — (Candidata, por elicitar) Dejar evidencia de quién decidió el despacho, cuándo y con qué información","G-CA-N-03, G-CA-A-01 (contexto)
+Gateway_Corte, Task_EnviarPedidoApto, Task_AsignarRuta (contexto)","R-CA-F-01 — Registrar la versión del pedido que sustenta la habilitación para preparación
+R-CA-F-02 — Consultar versión y estado vigentes del pedido
+R-CA-F-04 — Advertir los cambios que invalidan verificaciones previas
+R-CA-Q-01 — Control de acceso al registro de la habilitación
+R-CA-Q-02 — Registros auditables e íntegros","R-CA-IF-01 — Informe de Almacén hacia el SoI
+R-CA-IF-02 — Estado de crédito desde Créditos hacia el SoI
+R-CA-IF-03 — Pedido apto y cambios entre el SoI y Despacho
+R-CA-D-01 — Historial de versiones y cambios del pedido
+BR-CA-03 — Estabilidad del pedido antes del cierre de ruta
+RS-CA-01 — El SoI no adquiere autoridad de decisión
+R-CA-F-CAND-S12-01 — Registrar la confirmación humana de despacho del Coordinador con la evidencia consultada
+HU-CA-CAND-S12-01 — Registrar mi confirmación humana de despacho con la versión y condiciones consultadas",HU-CA-CAND-S12-01 — Registrar mi confirmación humana de despacho con la versión y condiciones consultadas,"CU-CA-03 — Registrar confirmación humana de despacho
+Dejar evidencia de quién decidió confirmar un despacho, cuándo y con qué información consultada (versión, crédito, saldo reportado, ruta). El Coordinador decide; el SoI registra y controla el acceso.",Candidato · por validar (sin RF ni HU aprobados),"HUAC-CA-CAND-S12-01 — Normal (candidato S12) · P-2101/V2: «CONFIRMACIÓN REGISTRADA» con autor, rol, hora y evidencia
+HUAC-CA-CAND-S12-02 — Negativo (candidato S12) · P-2105/V1: discrepancia al intentar confirmar con ruta cerrada
+HUAC-CA-CAND-S12-03 — Excepción (candidato S12) · P-2106/V1: «NO VERIFICADO»; confirmación no registrada
+HUAC-CA-CAND-S12-04 — Seguridad (candidato S12): usuario sin rol de Despacho; «ACCESO DENEGADO» auditado
+HUAC-CA-09 — Negativo · P-2105/V1: «DISCREPANCIA: cambio posterior al cierre»
+HUAC-CA-10 — Excepción · P-2105/V1: replanificación sin motivo → «motivo no informado»
+HUAC-CA-12 — Seguridad (RNF) · P-2101/V2: cuenta sin rol denegada y auditada
+HUAC-CA-06 — Excepción · P-2106/V1: «NO VERIFICADO» con datos faltantes; sin «APTO»","AC-CA-Q-01 — Solicitudes autorizadas con identidad y hora; rol sin permiso denegado y auditado (R-CA-Q-01)
+AC-CA-Q-02 — Registros con autor, hora, motivo y versión; sin edición silenciosa (R-CA-Q-02)
+AC-CA-IF-03 — Mensaje pedido apto y cambios con Despacho (R-CA-IF-03)
+AC-CA-RS-01 — No existe operación para decidir crédito, stock o rutas (RS-CA-01)
+AC-CA-04 — Verificaciones previas «sin vigencia» y aviso registrado (R-CA-F-04)
+AC-CA-01 — Aptitud para preparación registrada con ID y versión (R-CA-F-01)
+AC-CA-IF-01 — Informe de Almacén con correlación y vigencia (R-CA-IF-01)
+AC-CA-IF-02 — Estado de crédito desde Créditos (R-CA-IF-02)","ES-CA-12-04, ES-CA-12-05, ES-CA-12-06, ES-CA-12-07","diseñado, no ejecutado"
+"E33 (13/200 rutas reabiertas; 11/200 direcciones corregidas), E35, E38 (cierre cercano a 13:40), E41 →
+N-CA-04 — Recibir dirección, bultos, preparación y cambios completos antes del cierre de ruta y saber cuándo replanificar","G-CA-N-03, G-CA-A-01
+Gateway_Corte, Task_EnviarPedidoApto, Task_AsignarRuta, Task_ReplanificarRuta","R-CA-F-04 — Advertir los cambios que invalidan verificaciones previas
+R-CA-Q-01 — Control de acceso al registro de la habilitación
+R-CA-Q-02 — Registros auditables e íntegros","R-CA-IF-03 — Pedido apto y cambios entre el SoI y Despacho
+R-CA-D-01 — Historial de versiones y cambios del pedido
+BR-CA-03 — Estabilidad del pedido antes del cierre de ruta
+RS-CA-01 — El SoI no adquiere autoridad de decisión",HU-CA-05 — Identificar cambios recibidos después del cierre de ruta,"CU-CA-04 — Consultar incidente por cambio tardío
+Identificar los cambios recibidos después del cierre de ruta (versión, hora de cierre, hora del cambio, direcciones) para decidir si replanifica.",Base S10 (propuesto · por validar),"HUAC-CA-09 — Negativo · P-2105/V1: «DISCREPANCIA: cambio posterior al cierre»
+HUAC-CA-10 — Excepción · P-2105/V1: replanificación sin motivo → «motivo no informado»","AC-CA-04 — Verificaciones previas «sin vigencia» y aviso registrado (R-CA-F-04)
+AC-CA-IF-03 — Mensaje pedido apto y cambios con Despacho (R-CA-IF-03)
+AC-CA-RS-01 — No existe operación para decidir crédito, stock o rutas (RS-CA-01)
+AC-CA-Q-02 — Registros con autor, hora, motivo y versión; sin edición silenciosa (R-CA-Q-02)
+AC-CA-D-01 — Historial de versiones y cambios (R-CA-D-01)","ES-CA-12-11, ES-CA-12-12","diseñado, no ejecutado"

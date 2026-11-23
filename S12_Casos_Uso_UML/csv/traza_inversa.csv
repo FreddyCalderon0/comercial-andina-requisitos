@@ -1,0 +1,42 @@
+﻿Tipo,Elemento,Descripción,Estado en el expediente,CU S12 que lo cubre,Escenarios ES-CA-12 vinculados,Observación
+HU,HU-CA-01,Consultar las condiciones registradas antes de iniciar el picking,Borrador · Must,CU-CA-01,"ES-CA-12-09, ES-CA-12-10",
+HU,HU-CA-02,Visualizar la disponibilidad reportada para la versión del pedido,Borrador · Must,CU-CA-02,"ES-CA-12-01, ES-CA-12-02, ES-CA-12-03, ES-CA-12-08",
+HU,HU-CA-03,Advertir cambios de versión y datos faltantes antes de preparar,Borrador · Must,—,—,Sin CU en S12: el aviso es un comportamiento del SoI (H-S12-08).
+HU,HU-CA-04,Ver la versión y el compromiso vigentes para comunicar un estado coherente,Borrador · Could,—,—,Sin CU en S12 (H-S12-08).
+HU,HU-CA-05,Identificar cambios recibidos después del cierre de ruta,Borrador · Should,CU-CA-04,"ES-CA-12-11, ES-CA-12-12",
+HU,HU-CA-06,Informar un faltante detectado en la preparación y pedir coordinación,Pendiente (requisito candidato) · Could,—,—,Sin CU en S12 (H-S12-08); requisito candidato sin validar.
+HU,HU-CA-07,Ver el porcentaje de entregas en ventana calculado desde los registros,Excluida (Won't this time),—,—,Excluida del incremento (Won't this time).
+HU,HU-CA-08,Reabrir y replanificar la ruta automáticamente ante un cambio tardío,Excluida (Won't this time),—,—,Excluida del incremento (Won't): contradice RS-CA-01.
+HU,HU-CA-CAND-S12-01,Registrar mi confirmación humana de despacho con la versión y condiciones consultadas,Candidata S12 · no aprobada · fuera del backlog S11,CU-CA-03,"ES-CA-12-04, ES-CA-12-05, ES-CA-12-06, ES-CA-12-07",
+RF / RNF,R-CA-F-01,Registrar la versión del pedido que sustenta la habilitación para preparación,RF S10 · propuesto · por validar,"CU-CA-01, CU-CA-03","ES-CA-12-05, ES-CA-12-09, ES-CA-12-10",
+RF / RNF,R-CA-F-02,Consultar versión y estado vigentes del pedido,RF S10 · propuesto · por validar,"CU-CA-01, CU-CA-02, CU-CA-03","ES-CA-12-01, ES-CA-12-05, ES-CA-12-07, ES-CA-12-09, ES-CA-12-10",
+RF / RNF,R-CA-F-03,Consultar disponibilidad utilizable y separaciones antes de confirmar el compromiso,RF S10 · propuesto · por validar,CU-CA-02,"ES-CA-12-01, ES-CA-12-02, ES-CA-12-03, ES-CA-12-08",
+RF / RNF,R-CA-F-04,Advertir los cambios que invalidan verificaciones previas,RF S10 · propuesto · por validar,"CU-CA-02, CU-CA-03, CU-CA-04","ES-CA-12-03, ES-CA-12-04, ES-CA-12-11",
+RF / RNF,R-CA-F-05,Registrar lo comunicado al cliente y señalar cuándo queda desactualizado,RF S10 · propuesto · por validar,—,—,Sin CU en S12: depende de HU-CA-04 (H-S12-08).
+RF / RNF,R-CA-F-06,Registrar una incidencia de definición del resultado de entrega,RF S10 · propuesto · por validar,—,—,"Sin CU en S12: depende de HU-CA-07, excluida (H-S11-01)."
+RF / RNF,R-CA-Q-01,Control de acceso al registro de la habilitación,RNF S10 · propuesto · por validar,"CU-CA-01, CU-CA-02, CU-CA-03, CU-CA-04","ES-CA-12-01, ES-CA-12-02, ES-CA-12-03, ES-CA-12-05, ES-CA-12-06, ES-CA-12-07, ES-CA-12-08, ES-CA-12-09, ES-CA-12-11",
+RF / RNF,R-CA-Q-02,Registros auditables e íntegros,RNF S10 · propuesto · por validar,"CU-CA-03, CU-CA-04","ES-CA-12-04, ES-CA-12-06, ES-CA-12-07, ES-CA-12-11, ES-CA-12-12",
+RF / RNF,R-CA-Q-03,Tiempo de respuesta de la consulta de versión y estado,RNF S10 · propuesto · por validar,CU-CA-01,—,"Sin escenario en S12: su prueba exige entorno y datos reales (H-S11-02, AC-CA-Q-03)."
+Candidato,R-CA-F-CAND-S11-01,"Mostrar al personal de preparación la condición de aptitud («APTO», «NO APTO» con motivo, «NO VERIFICADO») sin autorizar el picking",Candidato · no aprobado,CU-CA-01,"ES-CA-12-09, ES-CA-12-10",
+Candidato,R-CA-F-CAND-S11-02,"Mostrar a Almacén, por ítem, cantidad requerida, saldo utilizable reportado y suficiencia o diferencia, con fuente y vigencia",Candidato · no aprobado,CU-CA-02,"ES-CA-12-01, ES-CA-12-02, ES-CA-12-03",
+Candidato,R-CA-F-CAND-S11-03,"Registrar un faltante detectado en la preparación («reportado, no certificado»)",Candidato · no aprobado,—,—,Sin CU en S12: depende de HU-CA-06.
+Candidato,R-CA-F-CAND-S11-04,"Calcular y mostrar el porcentaje de pedidos entregados dentro de su ventana (diferido, Won't)",Candidato · no aprobado,—,—,Diferido (Won't): depende de HU-CA-07.
+Candidato,R-CA-F-CAND-S12-01,Registrar la confirmación humana de despacho del Coordinador con la evidencia consultada,Candidato · no aprobado,CU-CA-03,"ES-CA-12-04, ES-CA-12-05, ES-CA-12-06, ES-CA-12-07",
+HUAC,HUAC-CA-01,"Normal · P-2101/V2: el operario ve versión, crédito, saldo y ruta con fuente y hora","HUAC S11 · diseñado, no ejecutado",CU-CA-01,ES-CA-12-09,
+HUAC,HUAC-CA-02,Negativo · P-2102/V1: «NO APTO · CRÉDITO OBSERVADO»; no autoriza picking,"HUAC S11 · diseñado, no ejecutado",CU-CA-01,ES-CA-12-10,
+HUAC,HUAC-CA-03,Normal · P-2101/V2: «SUFICIENTE (14/12)»; no reserva stock,"HUAC S11 · diseñado, no ejecutado",CU-CA-02,ES-CA-12-01,
+HUAC,HUAC-CA-04,Negativo · P-2103/V1: «INSUFICIENTE: faltan 7»; decisión humana de Almacén y Ventas,"HUAC S11 · diseñado, no ejecutado",CU-CA-02,ES-CA-12-02,
+HUAC,HUAC-CA-05,Cambio de versión · P-2104 V2→V3: verificaciones de V2 «SIN VIGENCIA»,"HUAC S11 · diseñado, no ejecutado","CU-CA-01, CU-CA-02",ES-CA-12-03,
+HUAC,HUAC-CA-06,Excepción · P-2106/V1: «NO VERIFICADO» con datos faltantes; sin «APTO»,"HUAC S11 · diseñado, no ejecutado","CU-CA-01, CU-CA-02, CU-CA-03","ES-CA-12-05, ES-CA-12-08",
+HUAC,HUAC-CA-07,"Normal · P-2101/V2: Ventas ve versión, compromiso y última comunicación","HUAC S11 · diseñado, no ejecutado",—,—,Sin CU en S12: HU-CA-04.
+HUAC,HUAC-CA-08,Negativo · P-2104 V2→V3: comunicación sobre V2 «DESACTUALIZADA»,"HUAC S11 · diseñado, no ejecutado",—,—,Sin CU en S12: HU-CA-04.
+HUAC,HUAC-CA-09,Negativo · P-2105/V1: «DISCREPANCIA: cambio posterior al cierre»,"HUAC S11 · diseñado, no ejecutado","CU-CA-03, CU-CA-04","ES-CA-12-04, ES-CA-12-11",
+HUAC,HUAC-CA-10,Excepción · P-2105/V1: replanificación sin motivo → «motivo no informado»,"HUAC S11 · diseñado, no ejecutado","CU-CA-03, CU-CA-04",ES-CA-12-12,
+HUAC,HUAC-CA-11,Excepción · P-2104 V2→V3: «INFORME DE VERSIÓN ANTERIOR (V2)»,"HUAC S11 · diseñado, no ejecutado",CU-CA-02,ES-CA-12-03,
+HUAC,HUAC-CA-12,Seguridad (RNF) · P-2101/V2: cuenta sin rol denegada y auditada,"HUAC S11 · diseñado, no ejecutado","CU-CA-01, CU-CA-03",ES-CA-12-06,
+HUAC,HUAC-CA-13,Normal (candidato) · P-2101/V2: faltante reportado por preparación,"HUAC S11 · diseñado, no ejecutado",—,—,Sin CU en S12: HU-CA-06.
+HUAC,HUAC-CA-14,Negativo (candidato) · P-2104 V2→V3: faltante referido a versión anterior,"HUAC S11 · diseñado, no ejecutado",—,—,Sin CU en S12: HU-CA-06.
+HUAC,HUAC-CA-CAND-S12-01,"Normal (candidato S12) · P-2101/V2: «CONFIRMACIÓN REGISTRADA» con autor, rol, hora y evidencia","Candidato S12 · diseñado, no ejecutado",CU-CA-03,ES-CA-12-07,
+HUAC,HUAC-CA-CAND-S12-02,Negativo (candidato S12) · P-2105/V1: discrepancia al intentar confirmar con ruta cerrada,"Candidato S12 · diseñado, no ejecutado",CU-CA-03,ES-CA-12-04,
+HUAC,HUAC-CA-CAND-S12-03,Excepción (candidato S12) · P-2106/V1: «NO VERIFICADO»; confirmación no registrada,"Candidato S12 · diseñado, no ejecutado",CU-CA-03,ES-CA-12-05,
+HUAC,HUAC-CA-CAND-S12-04,Seguridad (candidato S12): usuario sin rol de Despacho; «ACCESO DENEGADO» auditado,"Candidato S12 · diseñado, no ejecutado",CU-CA-03,ES-CA-12-06,

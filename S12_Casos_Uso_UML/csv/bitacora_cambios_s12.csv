@@ -1,0 +1,11 @@
+﻿ID,Tipo,Descripción,Elementos afectados,Estado,Fecha
+CH-S12-01,Cambio al expediente,"Se crea la carpeta S12_Casos_Uso_UML/ (v1.0). No se edita ningún archivo de S9, S10 ni S11.",S12_Casos_Uso_UML/,Hecho,2026-11-23
+CH-S12-02,Cambio al expediente,README.md de la raíz: se agrega una fila para S12 y la convención de commit «S12: …». Es el único archivo previo tocado.,README.md (raíz),Hecho,2026-11-23
+DM-S12-01,Decisión de modelado,"Actores primarios: Operario (CU-CA-01), Almacenero (CU-CA-02), Coordinador de Despacho (CU-CA-03 y CU-CA-04). Ventas y TI son interesados, no actores, porque no intercambian información dentro de estos CU (guía Act. 2).",Diagrama; tabla de actores,Provisional,2026-11-23
+DM-S12-02,Decisión de modelado,"Almacén y Créditos se dibujan como actores secundarios porque aportan datos (R-CA-IF-01, R-CA-IF-02). El mecanismo técnico no se asume (RS-CA-02).",Diagrama,Provisional · por validar con TI,2026-11-23
+DM-S12-03,Decisión de modelado,No se usan «include» ni «extend»: no hay una semántica de reutilización que se pueda justificar (Q-CA-S12-10).,Diagrama,Provisional,2026-11-23
+DM-S12-04,Decisión de modelado,"Se grafica CU-CA-04 «Consultar incidente por cambio tardío» como cuarto caso porque lo respaldan HU-CA-05, HUAC-CA-09/10 y R-CA-F-04 (base S10). CU-CA-01 y CU-CA-04 tienen ficha breve.",Diagrama; fichas,Provisional,2026-11-23
+SC-S12-01,Solicitud de cambio,Incorporar al catálogo HU la historia candidata HU-CA-CAND-S12-01 (confirmación humana de despacho).,Catálogo HU (S11),Solicitada · no aprobada,2026-11-23
+SC-S12-02,Solicitud de cambio,Incorporar al catálogo de requisitos el candidato R-CA-F-CAND-S12-01 si Despacho valida el alcance de «confirmar despacho».,Catálogo RF/RNF (S10),Solicitada · no aprobada,2026-11-23
+SC-S12-03,Solicitud de cambio,Evaluar ampliar R-CA-Q-01 para que cubra el registro de la confirmación de despacho.,R-CA-Q-01 (S10),Solicitada · no aprobada,2026-11-23
+SC-S12-04,Solicitud de cambio,"Acordar una lista oficial de estados (SUFICIENTE, INSUFICIENTE, NO VERIFICADO, PENDIENTE DE DECISIÓN HUMANA, REGISTRO RECHAZADO) con P-S10-03.",S10; S11; S12,Solicitada · no aprobada,2026-11-23
