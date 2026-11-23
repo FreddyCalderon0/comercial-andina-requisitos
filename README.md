@@ -8,9 +8,10 @@ Repositorio del caso acumulativo Comercial Andina S.A.C. (value stream «Desde l
 |---|---|---|
 | `S9_Arquitectura_TOBE/` | 9 | Informe de arquitectura empresarial y proceso TO-BE (Word), BPMN TO-BE editable (`.bpmn`) y una vista previa aproximada |
 | `S10_RF_RNF/` | 10 | Catálogo de requisitos funcionales y no funcionales, trazabilidad, criterios de aceptación, escenarios, bitácora y fichas; ver el README de esa carpeta |
+| `S11_Historias_y_Backlog/` | 11 | Catálogo de historias de usuario, criterios HUAC, backlog priorizado, trazabilidad y bitácora de preguntas (libro XLSX y CSV); ver el README de esa carpeta |
 
 ## Convenciones
 
 - Cada semana vive en su propia carpeta; una entrega nueva no sobrescribe la anterior.
-- Los commits se identifican con la semana: `S9: …`, `S10: …`.
+- Los commits se identifican con la semana: `S9: …`, `S10: …`, `S11: …`.
 - Lo que no está sustentado en la evidencia del caso se marca «por validar»; no se inventan datos.

@@ -1,0 +1,3 @@
+﻿Épica,Nombre,Valor que agrupa,HU,Necesidades
+EP-CA-01,Pedido listo para preparación,"Que el personal de Almacén prepare solo sobre una versión vigente del pedido y con las condiciones de crédito y stock visibles, sin que el SoI autorice ni certifique nada.","HU-CA-01, HU-CA-02, HU-CA-03, HU-CA-06","N-CA-01, N-CA-02, N-CA-03"
+EP-CA-02,Coordinación de pedido y entrega,"Que Ventas y Despacho vean un estado coherente del pedido, los cambios tardíos y lo ya comunicado, y decidan con evidencia; incluye lo excluido del incremento (Won't).","HU-CA-04, HU-CA-05, HU-CA-07, HU-CA-08","N-CA-04, N-CA-05, N-CA-06"

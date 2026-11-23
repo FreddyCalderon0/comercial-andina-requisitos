@@ -1,0 +1,6 @@
+﻿Actor,Decisión o dato que controla,Qué puede hacer el SoI propuesto,Naturaleza
+Ventas,Confirma versión y compromiso del pedido.,"Consultar/registrar la versión informada y mostrar un cambio, sin prometer unilateralmente.",D-S11-02 (tabla de autoridades de la guía; no es evidencia E33–E42)
+Crédito,"Aprueba, observa o autoriza excepción bajo CR-01.",Consultar estado y evidencia; nunca aprobar crédito.,D-S11-02 (tabla de autoridades de la guía; no es evidencia E33–E42)
+Almacén,Comprueba existencias reales y autoriza picking físico según procedimiento.,Mostrar información reportada y su vigencia; no certificar stock ni realizar picking.,D-S11-02 (tabla de autoridades de la guía; no es evidencia E33–E42)
+Despacho,Cierra/replanifica rutas y registra salida.,"Consultar cierre, marcar discrepancia y conservar evidencia; no cerrar/reabrir ruta.",D-S11-02 (tabla de autoridades de la guía; no es evidencia E33–E42)
+TI / Datos,"Verifica factibilidad de acceso, frecuencia, integridad y permisos.",Registrar restricciones e hipótesis sin asumir integraciones existentes.,D-S11-02 (tabla de autoridades de la guía; no es evidencia E33–E42)

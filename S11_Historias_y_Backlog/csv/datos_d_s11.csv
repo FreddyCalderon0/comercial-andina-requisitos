@@ -1,0 +1,7 @@
+﻿Pedido / versión,Naturaleza del dato,Estado de crédito,Estado de la versión,Unidades requeridas,Unidades informadas por Almacén,Ruta,"Situación que debe tratar la HU (guía S11, 4.3)",HUAC que lo usan
+P-2101 / V2,D-S11 (dato didáctico sintético; no es evidencia E33–E42),APROBADO,CONFIRMADA,12,14,ABIERTA,Consulta favorable si todas las fuentes y versiones se verifican.,"HUAC-CA-01, HUAC-CA-03, HUAC-CA-07, HUAC-CA-12, HUAC-CA-13"
+P-2102 / V1,D-S11 (dato didáctico sintético; no es evidencia E33–E42),OBSERVADO,CONFIRMADA,10,15,ABIERTA,No presentar el pedido como apto por falta de aprobación de Crédito.,HUAC-CA-02
+P-2103 / V1,D-S11 (dato didáctico sintético; no es evidencia E33–E42),APROBADO,CONFIRMADA,20,13,ABIERTA,Insuficiencia comunicada de 7 unidades; necesidad de decisión humana.,HUAC-CA-04
+P-2104 / V2→V3,D-S11 (dato didáctico sintético; no es evidencia E33–E42),APROBADO en V2; V3 sin evaluación,V3 recibida,V2: 8; V3: 11,9 (la guía no indica la versión del informe),No indicada en D-S11-01,No reutilizar aptitud previa; pedir revalidación de V3.,"HUAC-CA-05, HUAC-CA-08, HUAC-CA-11, HUAC-CA-14"
+P-2105 / V1,D-S11 (dato didáctico sintético; no es evidencia E33–E42),APROBADO,CONFIRMADA,6,6,CERRADA 13:40; cambio de dirección 13:46,Cambio de dirección 13:46; no alterar ruta automáticamente.,"HUAC-CA-09, HUAC-CA-10"
+P-2106 / V1,D-S11 (dato didáctico sintético; no es evidencia E33–E42),Sin respuesta,PRELIMINAR,5,NO VERIFICADO,Sin confirmar,"Mostrar faltantes, no suponer condición favorable.",HUAC-CA-06
