@@ -56,7 +56,7 @@ Pendiente de revisión humana:
 
 - S9 y S10 se subieron en commits anteriores, por lo que sus versiones quedan recuperables en el historial.
 - Commit de S11 (mensaje sugerido): `S11: historias de usuario y backlog v1.0 (Equipo D)`
-- Referencia al commit S11: _(completar con el hash tras crear el commit; no puede conocerse antes de crearlo)_
+- Referencia al commit S11: 130c87b7b6693e048255c5d543db7595b057ff78
 
 ## Puente a la Semana 12
 
